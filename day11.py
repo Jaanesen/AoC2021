@@ -4,17 +4,18 @@ def main():
     file = open('input11.txt', 'r')
 
     octo = []
+    octo2 = []
 
     for line in file:
         list1=[]
         list1[:0]=line.strip()
         list1 = [int(i) for i in list1]
         octo.append(list1)
+        octo2.append(list1)
 
     count = 0
 
     for _ in range(100):
-
 
         for x, row in enumerate(octo):
             for y, _ in enumerate(row):
@@ -30,38 +31,28 @@ def main():
 
     print("Part 1: " + str(count))
 
-    octo = []
-
-    file = open('input11.txt', 'r')
-    for line in file:
-        list1=[]
-        list1[:0]=line.strip()
-        list1 = [int(i) for i in list1]
-        octo.append(list1)
-
     step = 0
 
-    while not all(element == octo[0] for element in octo):
+    while not all(element == octo2[0] for element in octo2):
         step += 1
 
-        for x, row in enumerate(octo):
+        for x, row in enumerate(octo2):
             for y, _ in enumerate(row):
-                octo[x][y] += 1
+                octo2[x][y] += 1
 
-        while checkFlash(octo):
-            for x, row in enumerate(octo):
+        while checkFlash(octo2):
+            for x, row in enumerate(octo2):
                 for y, elem in enumerate(row):
                     if elem > 9:
-                        octo[x][y] = 0
-                        octo = incAdj(x, y, octo)
+                        octo2[x][y] = 0
+                        octo2 = incAdj(x, y, octo2)
                         count += 1
 
     print("Part 2: " + str(step))
 
 
 def incAdj(x, y, octo):
-    i = [-1, 0, 1]
-    j = [-1, 0, 1]
+    i = j = [-1, 0, 1]
 
     for n in i:
         for m in j:
