@@ -32,41 +32,33 @@ def main():
     
 def findPattern(signals):
     slist = signals.split()
+    slist.sort(key=len)
     dic = {}
     revdic = {}
 
-"""
-Sortere slist på størrelse
-sette størrelser riktig, mulig i list da dictionary oppfører seg merkelig
-"""
+    dic[''.join(sorted(slist[0]))] = "1"
+    revdic["1"] = ''.join(sorted(slist[0]))
+    slist.remove(slist[0])
+    dic[''.join(sorted(slist[0]))] = "7"
+    revdic["7"] = ''.join(sorted(slist[0]))
+    slist.remove(slist[0])  
+    dic[''.join(sorted(slist[0]))] = "4"
+    revdic["4"] = ''.join(sorted(slist[0]))
+    slist.remove(slist[0])
+    dic[''.join(sorted(slist[6]))] = "8"
+    revdic["8"] = ''.join(sorted(slist[6]))
+    slist.remove(slist[6])
 
-
-
-    while(len(slist) > 0):
-        for signal in slist:
-            if len(signal) == 2:
-                dic[''.join(sorted(signal))] = "1"
-                revdic["1"] = ''.join(sorted(signal))
-                slist.remove(signal)
-            elif len(signal) == 3:
-                dic[''.join(sorted(signal))] = "7"
-                revdic["7"] = ''.join(sorted(signal))
-                slist.remove(signal)  
-            elif len(signal) == 4:
-                dic[''.join(sorted(signal))] = "4"
-                revdic["4"] = ''.join(sorted(signal))
-                slist.remove(signal)
-            elif len(signal) == 7:
-                dic[''.join(sorted(signal))] = "8"
-                revdic["8"] = ''.join(sorted(signal))
-                slist.remove(signal)
+    while len(slist) != 0:
 
         for signal in slist:
             if len(signal) == 5 and all(a in sorted(signal) for a in sorted(revdic["7"])):
                 dic[''.join(sorted(signal))] = "3"
                 revdic["3"] = ''.join(sorted(signal))
                 slist.remove(signal)
-            elif len(signal) == 6 and all(a in sorted(signal) for a in sorted(revdic["4"])):
+        
+        for signal in slist:
+            if len(signal) == 6 and all(a in sorted(signal) for a in sorted(revdic["4"])):
                 dic[''.join(sorted(signal))] = "9"
                 revdic["9"] = ''.join(sorted(signal))
                 slist.remove(signal)
@@ -95,50 +87,7 @@ sette størrelser riktig, mulig i list da dictionary oppfører seg merkelig
                 revdic["2"] = ''.join(sorted(signal))
                 slist.remove(signal)
 
-        print(dic)
-
     return dic
-
-# [a, cg, ef, cg, , ef, ]
-
-# 1 = [0, 0, 1, 0, 0, 1, 0] 2
-# 2 = [1, 0, 1, 1, 1, 0, 1] 5
-# 3 = [1, 0, 1, 1, 0, 1, 1] 5
-# 4 = [0, 1, 1, 1, 0, 1, 0] 4
-# 5 = [1, 1, 0, 1, 0, 1, 1] 5
-# 6 = [1, 1, 0, 1, 1, 1, 1] 6
-# 7 = [1, 0, 1, 0, 0, 1, 0] 3
-# 8 = [1, 1, 1, 1, 1, 1, 1] 7
-# 9 = [1, 1, 1, 1, 0, 1, 1] 6
-# 0 = [1, 1, 1, 0, 1, 1 ,1] 6
-
-# 1 3 4 6 7 8 9
-
-# 2 5
-
-# 6, 0 og 9 er 6 lange
-# 3 er subset av 9
-# 2 og 5 har 2 forskjellig
-# 3 har hele 1 i seg
-
-# 5 er subset av 6
-
-
-# [0, 1, 2, 3, 4, 5, 6]
-
-# 1 3 4 7 8 9
-
-# 2 5 6 0
-
-"""
- 0000
-1    2
-1    2
- 3333
-4    5
-4    5
- 6666
-"""
 
 if __name__ == "__main__":
     main()
